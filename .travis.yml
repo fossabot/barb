@@ -1,0 +1,50 @@
+os: linux
+dist: bionic
+
+language: go
+go:
+  - "1.13"
+
+env: GO111MODULE=on
+
+services:
+  - docker
+
+stages:
+  - lint
+  - test
+  - docker
+  - deploy
+
+jobs:
+  include:
+    - stage: lint
+      install:
+        - make setup
+      script:
+        - make lint
+
+    - stage: test
+      install:
+        - make setup
+        - make build
+      script:
+        - make test
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+
+    - stage: docker
+      script:
+        - make docker_image
+
+    - stage: deploy
+      if: tag IS present
+      script:
+        - curl -sL https://git.io/goreleaser | bash
+
+    - stage: deploy
+      if: tag IS present
+      before_script:
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+      script:
+        - make docker_publish
