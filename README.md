@@ -22,7 +22,3 @@ Unlikely to see much progress until I finish my final year at university in Apri
 
 * [Stripe CLI](https://github.com/stripe/stripe-cli)
 * [Helm](https://github.com/helm/helm)
-
-
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FCathalMullan%2Fbarb.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FCathalMullan%2Fbarb?ref=badge_large)
